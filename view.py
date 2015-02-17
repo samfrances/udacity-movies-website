@@ -33,7 +33,7 @@ def _content(*movies):
                                          age_rating=movie.age_rating,
                                          imdb_rating=movie.imdb_rating)
         html += new_html
-    return text
+    return html
 
 def movies_view(*movies):
     content = _content(*movies)
