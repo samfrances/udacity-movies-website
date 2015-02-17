@@ -16,11 +16,13 @@ main_template = """
 """
 
 movie_template = """
-<img src="{poster_image_url}" style="float:left">
+<div style="overflow:auto">
+<img src="{poster_image_url}" style="float:left;padding-right:20px;">
 <h1>{title}</h1>
 <p>{storyline}</p>
 <p><strong>Age rating:</strong>{age_rating}</p>
 <p><strong>IMDB rating:</strong>{imdb_rating}</p>
+</div>
 <hr />
 """
 
