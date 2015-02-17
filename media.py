@@ -24,6 +24,8 @@ class Movie():
         self._omdb_data["title"] = data["Title"]
         self._omdb_data["storyline"] = data["Plot"]
         self._omdb_data["poster_image"] = data["Poster"]
+        self._omdb_data["age_rating"] = data["Rated"]
+        self._omdb_data["imdb_rating"] = float(data["imdbRating"])
     
     @property
     def title(self):
