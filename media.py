@@ -3,16 +3,16 @@ import urllib, json
 class Movie():
     """This class represents movies and associated information."""
     
-    def __init__(self, imdb_id, trailer_youtube, title=None, storyline=None, poster_image=None):
+    def __init__(self, imdb_id, trailer_youtube_url, title=None, storyline=None, poster_image_url=None):
         self._omdb_data = {}
-        self.trailer_youtube = trailer_youtube
+        self.trailer_youtube_url = trailer_youtube_url
         self.imdb_id = imdb_id
         if title:
             self.title = title
         if storyline:
             self.storyline = storyline
-        if poster_image:
-            self.poster_image = poster_image
+        if poster_image_url:
+            self.poster_image_url = poster_image_url
         self._get_omdb_data()
     
     def _get_omdb_data(self):
@@ -21,7 +21,7 @@ class Movie():
         data = json.loads(json_data)
         self._omdb_data["title"] = data["Title"]
         self._omdb_data["storyline"] = data["Plot"]
-        self._omdb_data["poster_image"] = data["Poster"]
+        self._omdb_data["poster_image_url"] = data["Poster"]
         self._omdb_data["age_rating"] = data["Rated"]
         self._omdb_data["imdb_rating"] = float(data["imdbRating"])
     
