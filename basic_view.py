@@ -22,7 +22,7 @@ movie_template = """
 <p>{storyline}</p>
 <p><strong>Age rating:</strong> {age_rating}</p>
 <p><strong>IMDB rating:</strong> {imdb_rating}</p>
-<p>
+<p><a href="{trailer_youtube_url}" target="_blank">View trailer on Youtube</a></p>
 </div>
 """
 
@@ -33,7 +33,8 @@ def _content(*movies):
                                          title=movie.title,
                                          storyline=movie.storyline,
                                          age_rating=movie.age_rating,
-                                         imdb_rating=movie.imdb_rating)
+                                         imdb_rating=movie.imdb_rating,
+                                         trailer_youtube_url = movie.trailer_youtube_url)
         html += new_html
     return html
 
