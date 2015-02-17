@@ -1,4 +1,4 @@
-import media, fresh_tomatoes
+import media
 
 pans_labyrinth = media.Movie(imdb_id="tt0457430", 
                              trailer_youtube_url="https://www.youtube.com/watch?feature=player_detailpage&v=EqYiSlkvRuw#t=6")
