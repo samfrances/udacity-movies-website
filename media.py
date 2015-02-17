@@ -6,13 +6,13 @@ class Movie():
     def __init__(self, imdb_id=None, trailer_youtube=None, title=None, storyline=None, poster_image=None):
         self._omdb_data = {}
         if title:
-            self._title = title
+            self.title = title
         if storyline:
-            self._storyline = storyline
+            self.storyline = storyline
         if poster_image:
-            self._poster_image = poster_image
+            self.poster_image = poster_image
         if trailer_youtube:
-            self._trailer_youtube = trailer_youtube
+            self.trailer_youtube = trailer_youtube
         if imdb_id:
             self.imdb_id = imdb_id
         self._get_omdb_data()
@@ -27,32 +27,8 @@ class Movie():
         self._omdb_data["age_rating"] = data["Rated"]
         self._omdb_data["imdb_rating"] = float(data["imdbRating"])
     
-    @property
-    def title(self):
-        if hasattr(self, '_title'):
-            return self._title
-        return self._omdb_data["title"]
-    
-    @title.setter
-    def title(self, value):
-        self._title = value
-    
-    @property
-    def storyline(self):
-        if hasattr(self, '_storyline'):
-            return self._storyline
-        return self._omdb_data["storyline"]
-    
-    @storyline.setter
-    def storyline(self, value):
-        self._storyline = value
-    
-    @property
-    def poster_image(self):
-        if hasattr(self, '_poster_image'):
-            return self._poster_image
-        return self._omdb_data["poster_image"]
-    
-    @poster_image.setter
-    def poster_image(self, value):
-        self._poster_image = value
+    def __getattr__(self, name):
+        if name in self._omdb_data:
+            return self._omdb_data[name]
+        else:
+            raise AttributeError(name)
