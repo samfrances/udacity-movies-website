@@ -1,4 +1,4 @@
-import media, view, server
+import media, basic_view, server
 
 pans_labyrinth = media.Movie(imdb_id="tt0457430", 
                              trailer_youtube_url="https://www.youtube.com/watch?feature=player_detailpage&v=EqYiSlkvRuw#t=6")
@@ -21,6 +21,6 @@ four_lions = media.Movie(imdb_id="tt1341167",
 movies = [pans_labyrinth, monty_python, todo_sobre_mi_madre, volver, four_lions, twenty_eight]
 
 if __name__ == "__main__":
-    html = view.movies_view(*movies)
+    html = basic_view.movies_view(*movies)
     srv = server.VerySimpleServer(html)
     srv.run()
