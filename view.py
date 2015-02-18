@@ -59,7 +59,9 @@ template_body = """
     <div class="container">
     {content}
     </div>
-    
+"""
+
+template_footer = """    
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
   </body>
@@ -70,8 +72,25 @@ movie_template = """
 <div class="col-md-4 text-center movie-tile">
 <img src="{poster_image_url}" class="movie-cover">
 <h3>{title}</h3>
-<a class="btn btn-info" href="#" role="button">Info</a>
+<a class="btn btn-info" href="#" role="button" data-toggle="modal" data-target="#basicModal{imdb_id}">Info</a>
 <a class="btn btn-info" href="#" role="button">Trailer</a>
+</div>
+"""
+
+modal_template = """
+<div class="modal fade" id="basicModal{imdb_id}" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">{title}</h4>
+            </div>
+            <div class="modal-body">
+                <p>{storyline}</p>
+            </div>
+        </div>
+    </div>
+  </div>
 </div>
 """
 
@@ -93,11 +112,12 @@ def _content(*movies):
         if (counter % 3) == 1:
             html += '\n<div class="row movie-row">\n' 
         new_html = movie_template.format(poster_image_url=movie.poster_image_url,
-                                         title=movie.title,
-                                         storyline=movie.storyline,
-                                         age_rating=movie.age_rating,
-                                         imdb_rating=movie.imdb_rating,
-                                         trailer_youtube_url = movie.trailer_youtube_url)
+                                         title=movie.title, 
+                                         storyline=movie.storyline, # used?
+                                         age_rating=movie.age_rating, # used?
+                                         imdb_rating=movie.imdb_rating, # used?
+                                         trailer_youtube_url = movie.trailer_youtube_url, # used?
+                                         imdb_id = movie.imdb_id)
         html += new_html
         if counter % 3 == 0:
             html += "\n</div>\n"
@@ -106,7 +126,17 @@ def _content(*movies):
         html += "\n</div>\n"
     return html
 
+def _modals(*movies):
+    html = ''
+    for movie in movies:
+        new_html = modal_template.format(title= movie.title,
+                                         storyline = movie.storyline,
+                                         imdb_id = movie.imdb_id)
+        html += new_html
+    return html
+    
 def movies_view(*movies):
     content = _content(*movies)
-    html = template_head + template_body.format(content=content)
+    modals = _modals(*movies)
+    html = template_head + template_body.format(content=content) + modals + template_footer
     return html
