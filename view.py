@@ -43,7 +43,7 @@ template_head = """
             if ( $(this).next(".movie-tile").length > 0 ) {
                 $(this).next(".movie-tile").show("fast", showNext);
             } else {
-                $(this).parent().next('.movie-row').children().first().show("fast", showNext);
+                $(this).parent().next('.movie-row').children().first('.movie-tile').show("fast", showNext);
             }
           });
         });
