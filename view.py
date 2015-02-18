@@ -66,6 +66,7 @@ template_body = """
 movie_template = """
 <div class="col-md-4 text-center movie-tile">
 <img src="{poster_image_url}" class="movie-cover">
+<h3>{title}</h3>
 </div>
 """
 
