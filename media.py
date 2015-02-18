@@ -1,4 +1,4 @@
-"""A module containing a class for retrieving, storing and representing 
+"""A module which provides a class for retrieving, storing and representing 
 information about movies"""
 
 import urllib, json
