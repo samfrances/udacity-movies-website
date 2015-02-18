@@ -39,7 +39,7 @@ main_template = """
 """
 
 movie_template = """
-<div class="col-md-4">
+<div class="col-md-4 text-center">
 <img src="{poster_image_url}" style="height:300px;">
 </div>
 """
