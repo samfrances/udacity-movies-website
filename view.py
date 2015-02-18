@@ -1,3 +1,7 @@
+"""Module provides the movies_view function, which takes any number of
+Movie objects, and returns html for a webpage to display the information
+contained by those Movie objects."""
+
 template_head = """
 <!DOCTYPE html>
 <html lang="en">
@@ -47,6 +51,8 @@ template_head = """
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>    
         
     <script type="text/javascript" charset="utf-8">
+        // Makes movie tiles appear one by one when the page loads.
+        // Adapted from version in https://s3.amazonaws.com/udacity-hosted-downloads/ud036/fresh_tomatoes.py 
         $(function () {
           $('.movie-tile').hide().first().show("fast", function showNext() {
             if ( $(this).next(".movie-tile").length > 0 ) {
@@ -57,17 +63,25 @@ template_head = """
           });
         });
         
+        // Adds functionality to 'Trailer' buttons, so that when clicked
+        // they open a modal embedding a Youtube video of the trailer.
+        // Uses information stored in data attributes of the buttons.
         $(function() {
             $('.trailer-button').each(function() {
+                // Get info from button's data attributes
                 var youtube_id = $(this).data("youtube_id");
                 var modal_id = $(this).data("target");
                 var title = $(this).data("title");
                 var age_rating = $(this).data("age_rating");
                 
+                // Form html for embedded youtube player
                 var html = '<iframe id="ytplayer" type="text/html" width="550" height="390" src="http://www.youtube.com/embed/'
                 html += youtube_id
                 html += '?autoplay=1" frameborder="0"/>'
-                  
+                
+                // Set click event handler for button, so that is opens the
+                // trailer modal, and changes the modal heading and content so as to
+                // play the right trailer.
                 $(this).click(function() {
                     var modal = $(modal_id);
                     modal.find('.modal-body').html(html);
@@ -89,7 +103,7 @@ template_body = """
     </div>
     
     <!-- Trailer modal -->
-    <div class="modal fade movie-modal" id="trailerModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+    <div class="modal fade" id="trailerModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -114,7 +128,11 @@ movie_template = """
 <div class="col-md-4 text-center movie-tile">
 <img src="{poster_image_url}" class="movie-cover">
 <h3>{title}</h3>
+
+<!-- Info modal IDs contain the imdb_id, so this can be used to target the correct modal -->
 <a class="btn btn-info" href="#" role="button" data-toggle="modal" data-target="#basicModal{imdb_id}">Info</a>
+
+<!-- Button contains data passed to trailer modal -->
 <a class="btn btn-info trailer-button" 
    href="#"
    role="button" 
@@ -166,6 +184,7 @@ movie_template_old = """
 """
 
 def _content(*movies):
+    """Renders Movie objcets into html for bootstrap rows and tiles"""
     html = ''
     counter = 1
     for movie in movies:
@@ -185,6 +204,7 @@ def _content(*movies):
     return html
 
 def _modals(*movies):
+    """Renders Movie objects into bootstrap modals for displaying movie info"""
     html = ''
     for movie in movies:
         new_html = modal_template.format(title = movie.title,
@@ -202,6 +222,7 @@ def _modals(*movies):
     return html
     
 def movies_view(*movies):
+    """Renders html webpage displaying information stored in Movie objects."""
     content = _content(*movies)
     modals = _modals(*movies)
     html = template_head + template_body.format(content=content) + modals + template_footer
