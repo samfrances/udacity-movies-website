@@ -23,6 +23,21 @@ main_template = """
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>    
+        
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function () {{
+          $('.movie-tile').hide().first().show("fast", function showNext() {{
+            if ( $(this).next(".movie-tile").length > 0 ) {{
+                $(this).next(".movie-tile").show("fast", showNext);
+            }} else {{
+                $(this).parent().next('.movie-row').children().first().show("fast", showNext);
+            }}
+          }});
+        }});
+    </script>
   </head>
   <body>
   
@@ -30,8 +45,6 @@ main_template = """
     {content}
     </div>
     
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
   </body>
@@ -39,7 +52,7 @@ main_template = """
 """
 
 movie_template = """
-<div class="col-md-4 text-center">
+<div class="col-md-4 text-center movie-tile">
 <img src="{poster_image_url}" style="height:300px;">
 </div>
 """
@@ -60,7 +73,7 @@ def _content(*movies):
     counter = 1
     for movie in movies:
         if (counter % 3) == 1:
-            html += '\n<div class="row top20">\n' 
+            html += '\n<div class="row top20 movie-row">\n' 
         new_html = movie_template.format(poster_image_url=movie.poster_image_url,
                                          title=movie.title,
                                          storyline=movie.storyline,
