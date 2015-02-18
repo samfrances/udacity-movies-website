@@ -29,7 +29,10 @@ template_head = """
             width:100%;
         }
         div.movie-modal-info {
-            padding-left:10px;
+            padding-left: 10px;
+        }
+        .bot20 {
+            margin-bottom: 20px;
         }
     </style>
 
@@ -81,7 +84,7 @@ template_body = """
         <a class="navbar-brand" href="#">My Movie Website</a>
         <p class="navbar-text">Udacity project by Sam Frances</p>
     </nav>
-    <div class="container">
+    <div class="container bot20">
     {content}
     </div>
     
