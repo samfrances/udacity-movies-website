@@ -1,3 +1,6 @@
+"""Provides a very simple WSGI server, which simply serves html
+provided as a string to http://localhost:8080/"""
+
 from wsgiref.simple_server import make_server
 
 class App():
@@ -5,6 +8,7 @@ class App():
         self.html = html
 
     def __call__(self, environ, start_response):
+        """Makes App objects callable, like functions, as required by WSGI"""
         start_response('200 OK', [('Content-Type', 'text/html')])
         return [self.html]
 
