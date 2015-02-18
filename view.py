@@ -137,6 +137,11 @@ modal_template = """
                 </div>
                 <div class="col-md-6 movie-modal-info">
                     <p>{storyline}</p>
+                    <p><strong>Released: </strong>{release_date}</p>
+                    <p><strong>Genre: </strong>{genre}</p>
+                    <p><strong>Directors: </strong>{directors}</p>
+                    <p><strong>Actors: </strong>{actors}</p>
+                    <p><strong>Awards: </strong>{awards}</p>
                     <p><strong>IMDB Rating: </strong>{imdb_rating}</p>
                 </div>
             </div>
@@ -184,7 +189,12 @@ def _modals(*movies):
                                          imdb_id = movie.imdb_id,
                                          age_rating = movie.age_rating,
                                          poster_image_url = movie.poster_image_url,
-                                         imdb_rating = movie.imdb_rating)
+                                         imdb_rating = movie.imdb_rating,
+                                         genre = movie.genre,
+                                         directors = ', '.join(movie.directors),
+                                         actors = ', '.join(movie.actors),
+                                         awards = movie.awards,
+                                         release_date = movie.release_date)
         html += new_html
     return html
     
