@@ -1,6 +1,6 @@
 # Udacity Movie Website Project
 
-## How to run the code
+## How to run
 
 1. Run `python main.py'.
 2. Open [http://localhost:8080/](http://localhost:8080/) in your preferred browser.
