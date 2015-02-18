@@ -25,6 +25,12 @@ template_head = """
             width: 203px;
             height: 300px;
         }
+        img.movie-modal {
+            width:100%;
+        }
+        div.movie-modal-info {
+            padding-left:10px;
+        }
     </style>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -78,15 +84,21 @@ movie_template = """
 """
 
 modal_template = """
-<div class="modal fade" id="basicModal{imdb_id}" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+<div class="modal fade movie-modal" id="basicModal{imdb_id}" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="myModalLabel">{title}</h4>
+            <h4 class="modal-title" id="myModalLabel">{title} ({age_rating})</h4>
             </div>
-            <div class="modal-body">
-                <p>{storyline}</p>
+            <div class="modal-body row">
+                <div class="col-md-6">
+                    <img src="{poster_image_url}" class="movie-modal" />
+                </div>
+                <div class="col-md-6 movie-modal-info">
+                    <p>{storyline}</p>
+                    <p><strong>IMDB Rating: </strong>{imdb_rating}</p>
+                </div>
             </div>
         </div>
     </div>
@@ -113,10 +125,7 @@ def _content(*movies):
             html += '\n<div class="row movie-row">\n' 
         new_html = movie_template.format(poster_image_url=movie.poster_image_url,
                                          title=movie.title, 
-                                         storyline=movie.storyline, # used?
-                                         age_rating=movie.age_rating, # used?
-                                         imdb_rating=movie.imdb_rating, # used?
-                                         trailer_youtube_url = movie.trailer_youtube_url, # used?
+                                         trailer_youtube_url = movie.trailer_youtube_url,
                                          imdb_id = movie.imdb_id)
         html += new_html
         if counter % 3 == 0:
@@ -131,7 +140,10 @@ def _modals(*movies):
     for movie in movies:
         new_html = modal_template.format(title= movie.title,
                                          storyline = movie.storyline,
-                                         imdb_id = movie.imdb_id)
+                                         imdb_id = movie.imdb_id,
+                                         age_rating = movie.age_rating,
+                                         poster_image_url = movie.poster_image_url,
+                                         imdb_rating = movie.imdb_rating)
         html += new_html
     return html
     
