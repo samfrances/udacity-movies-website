@@ -18,8 +18,11 @@ main_template = """
     <![endif]-->
   </head>
   <body>
+  
+    <div class="container">
     {content}
-
+    </div>
+    
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -29,6 +32,12 @@ main_template = """
 """
 
 movie_template = """
+<div class="col-md-4">
+<img src="{poster_image_url}" style="height:300px;">
+</div>
+"""
+
+movie_template_old = """
 <div style="overflow:auto;background-color:lightgrey;padding:10px;margin-bottom:10px;">
 <img src="{poster_image_url}" style="float:left;padding-right:20px;">
 <h1>{title}</h1>
@@ -41,7 +50,10 @@ movie_template = """
 
 def _content(*movies):
     html = ''
+    counter = 1
     for movie in movies:
+        if (counter % 3) == 1:
+            html += '\n<div class="row">\n' 
         new_html = movie_template.format(poster_image_url=movie.poster_image_url,
                                          title=movie.title,
                                          storyline=movie.storyline,
@@ -49,6 +61,11 @@ def _content(*movies):
                                          imdb_rating=movie.imdb_rating,
                                          trailer_youtube_url = movie.trailer_youtube_url)
         html += new_html
+        if counter % 3 == 0:
+            html += "\n</div>\n"
+        counter += 1
+    if counter % 3 != 1:
+        html += "\n</div>\n"
     return html
 
 def movies_view(*movies):
