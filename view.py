@@ -10,6 +10,13 @@ main_template = """
     <!-- Bootstrap -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
 
+    <!-- My extra styles -->
+    <style>
+        .top20 {{
+            margin-top:20px;
+        }}
+    </style>
+
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -53,7 +60,7 @@ def _content(*movies):
     counter = 1
     for movie in movies:
         if (counter % 3) == 1:
-            html += '\n<div class="row">\n' 
+            html += '\n<div class="row top20">\n' 
         new_html = movie_template.format(poster_image_url=movie.poster_image_url,
                                          title=movie.title,
                                          storyline=movie.storyline,
