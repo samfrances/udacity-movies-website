@@ -12,8 +12,18 @@ template_head = """
 
     <!-- My extra styles -->
     <style>
-        .top20 {
-            margin-top:20px;
+        .movie-row {
+            margin-top: 20px;
+        }
+        .movie-tile {
+            padding:10px;
+        }
+        .movie-tile:hover {
+            background-color: #D8D8D8;
+        }
+        img.movie-cover {
+            width: 203px;
+            height: 300px;
         }
     </style>
 
@@ -55,7 +65,7 @@ template_body = """
 
 movie_template = """
 <div class="col-md-4 text-center movie-tile">
-<img src="{poster_image_url}" style="height:300px;">
+<img src="{poster_image_url}" class="movie-cover">
 </div>
 """
 
@@ -75,7 +85,7 @@ def _content(*movies):
     counter = 1
     for movie in movies:
         if (counter % 3) == 1:
-            html += '\n<div class="row top20 movie-row">\n' 
+            html += '\n<div class="row movie-row">\n' 
         new_html = movie_template.format(poster_image_url=movie.poster_image_url,
                                          title=movie.title,
                                          storyline=movie.storyline,
