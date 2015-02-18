@@ -125,7 +125,7 @@ def _content(*movies):
             html += '\n<div class="row movie-row">\n' 
         new_html = movie_template.format(poster_image_url=movie.poster_image_url,
                                          title=movie.title, 
-                                         trailer_youtube_url = movie.trailer_youtube_url,
+                                         trailer_youtube_id = movie.trailer_youtube_id,
                                          imdb_id = movie.imdb_id)
         html += new_html
         if counter % 3 == 0:

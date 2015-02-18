@@ -3,9 +3,9 @@ import urllib, json
 class Movie():
     """This class represents movies and associated information."""
     
-    def __init__(self, imdb_id, trailer_youtube_url, title=None, storyline=None, poster_image_url=None):
+    def __init__(self, imdb_id, trailer_youtube_id, title=None, storyline=None, poster_image_url=None):
         self._omdb_data = {}
-        self.trailer_youtube_url = trailer_youtube_url
+        self.trailer_youtube_id = trailer_youtube_id
         self.imdb_id = imdb_id
         if title:
             self.title = title
