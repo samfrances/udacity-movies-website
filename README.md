@@ -2,7 +2,7 @@
 
 ## How to run
 
-1. Run `python main.py`.
+1. Run `python main.py` in the terminal.
 2. Open [http://localhost:8080/](http://localhost:8080/) in your preferred browser.
 
 ## Third-party code
