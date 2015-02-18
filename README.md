@@ -1,4 +1,14 @@
-# Udacity Movie Website Project
+# Udacity Movie Trailer Website Project
+
+## About
+
+This is my submission for **Project P1: Movie Trailer Website**, part of Udacity's [Full Stack Web Developer Nanodegree](https://www.udacity.com/course/nd004).
+
+The project brief is as follows:
+
+> You will write server-side code to store a list of your favorite movies, including box art imagery and a movie trailer URL. You will then serve this data as a web page allowing visitors to review their movies and watch the trailers.
+
+My movie trailer website automatically downloads movie information from the [Open Movie Database](http://www.omdbapi.com/), so Movie objects need only be initialised with an Internet Movie Database ID and a Youtube video ID for the trailer.
 
 ## How to run
 
