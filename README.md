@@ -3,7 +3,7 @@
 ## How to run the code
 
 1. Run `python main.py'.
-2. Open http://localhost:8080/ in your preferred browser.
+2. Open [http://localhost:8080/](http://localhost:8080/) in your preferred browser.
 
 ## Third-party code
 * Libraries and frameworks
