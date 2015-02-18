@@ -1,3 +1,6 @@
+"""An obselete module for rendering the html of the movies website.
+Replaced by the module 'view'."""
+
 main_template = """
 <!doctype html>
 
