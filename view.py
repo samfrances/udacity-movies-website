@@ -1,4 +1,4 @@
-main_template = """
+template_head = """
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -12,9 +12,9 @@ main_template = """
 
     <!-- My extra styles -->
     <style>
-        .top20 {{
+        .top20 {
             margin-top:20px;
-        }}
+        }
     </style>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -28,17 +28,19 @@ main_template = """
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>    
         
     <script type="text/javascript" charset="utf-8">
-        $(document).ready(function () {{
-          $('.movie-tile').hide().first().show("fast", function showNext() {{
-            if ( $(this).next(".movie-tile").length > 0 ) {{
+        $(document).ready(function () {
+          $('.movie-tile').hide().first().show("fast", function showNext() {
+            if ( $(this).next(".movie-tile").length > 0 ) {
                 $(this).next(".movie-tile").show("fast", showNext);
-            }} else {{
+            } else {
                 $(this).parent().next('.movie-row').children().first().show("fast", showNext);
-            }}
-          }});
-        }});
+            }
+          });
+        });
     </script>
   </head>
+"""
+template_body = """
   <body>
   
     <div class="container">
@@ -90,5 +92,5 @@ def _content(*movies):
 
 def movies_view(*movies):
     content = _content(*movies)
-    html = main_template.format(content=content)
+    html = template_head + template_body.format(content=content)
     return html
