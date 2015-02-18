@@ -44,7 +44,7 @@ template_head = """
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>    
         
     <script type="text/javascript" charset="utf-8">
-        $(document).ready(function () {
+        $(function () {
           $('.movie-tile').hide().first().show("fast", function showNext() {
             if ( $(this).next(".movie-tile").length > 0 ) {
                 $(this).next(".movie-tile").show("fast", showNext);
@@ -52,6 +52,25 @@ template_head = """
                 $(this).parent().next('.movie-row').children().first('.movie-tile').show("fast", showNext);
             }
           });
+        });
+        
+        $(function() {
+            $('.trailer-button').each(function() {
+                var youtube_id = $(this).data("youtube_id");
+                var modal_id = $(this).data("target");
+                var title = $(this).data("title");
+                var age_rating = $(this).data("age_rating");
+                
+                var html = '<iframe id="ytplayer" type="text/html" width="550" height="390" src="http://www.youtube.com/embed/'
+                html += youtube_id
+                html += '?autoplay=1" frameborder="0"/>'
+                  
+                $(this).click(function() {
+                    var modal = $(modal_id);
+                    modal.find('.modal-body').html(html);
+                    modal.find('.modal-title').text(title + " (" + age_rating +")");
+                })
+            });
         });
     </script>
   </head>
@@ -64,6 +83,20 @@ template_body = """
     </nav>
     <div class="container">
     {content}
+    </div>
+    
+    <!-- Trailer modal -->
+    <div class="modal fade movie-modal" id="trailerModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel"></h4>
+                </div>
+                <div class="modal-body text-center"></div>
+            </div>
+        </div>
+      </div>
     </div>
 """
 
@@ -79,7 +112,14 @@ movie_template = """
 <img src="{poster_image_url}" class="movie-cover">
 <h3>{title}</h3>
 <a class="btn btn-info" href="#" role="button" data-toggle="modal" data-target="#basicModal{imdb_id}">Info</a>
-<a class="btn btn-info" href="#" role="button">Trailer</a>
+<a class="btn btn-info trailer-button" 
+   href="#"
+   role="button" 
+   data-toggle="modal" 
+   data-target="#trailerModal" 
+   data-youtube_id="{trailer_youtube_id}"
+   data-title="{title}"
+   data-age_rating="{age_rating}">Trailer</a>
 </div>
 """
 
@@ -88,8 +128,8 @@ modal_template = """
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="myModalLabel">{title} ({age_rating})</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">{title} ({age_rating})</h4>
             </div>
             <div class="modal-body row">
                 <div class="col-md-6">
@@ -126,7 +166,8 @@ def _content(*movies):
         new_html = movie_template.format(poster_image_url=movie.poster_image_url,
                                          title=movie.title, 
                                          trailer_youtube_id = movie.trailer_youtube_id,
-                                         imdb_id = movie.imdb_id)
+                                         imdb_id = movie.imdb_id,
+                                         age_rating = movie.age_rating)
         html += new_html
         if counter % 3 == 0:
             html += "\n</div>\n"
@@ -138,7 +179,7 @@ def _content(*movies):
 def _modals(*movies):
     html = ''
     for movie in movies:
-        new_html = modal_template.format(title= movie.title,
+        new_html = modal_template.format(title = movie.title,
                                          storyline = movie.storyline,
                                          imdb_id = movie.imdb_id,
                                          age_rating = movie.age_rating,

@@ -16,7 +16,7 @@ volver = media.Movie(imdb_id="tt0441909",
                      trailer_youtube_id="9L2AJmNoUgo")
 
 four_lions = media.Movie(imdb_id="tt1341167",
-                         trailer_youtube_id="https://www.youtube.com/watch?v=nxJlqapu3zE")  
+                         trailer_youtube_id="Ew-SrlQ9tlI")  
 
 movies = [pans_labyrinth, monty_python, todo_sobre_mi_madre, volver, four_lions, twenty_eight]
 
