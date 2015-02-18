@@ -52,7 +52,10 @@ template_head = """
 """
 template_body = """
   <body>
-  
+    <nav class="navbar navbar-default navbar-static-top">
+        <a class="navbar-brand" href="#">My Movie Website</a>
+        <p class="navbar-text">Udacity project by Sam Frances</p>
+    </nav>
     <div class="container">
     {content}
     </div>
