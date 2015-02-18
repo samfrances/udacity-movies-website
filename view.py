@@ -172,17 +172,6 @@ modal_template = """
 </div>
 """
 
-movie_template_old = """
-<div style="overflow:auto;background-color:lightgrey;padding:10px;margin-bottom:10px;">
-<img src="{poster_image_url}" style="float:left;padding-right:20px;">
-<h1>{title}</h1>
-<p>{storyline}</p>
-<p><strong>Age rating:</strong> {age_rating}</p>
-<p><strong>IMDB rating:</strong> {imdb_rating}</p>
-<p><a href="{trailer_youtube_url}" target="_blank">View trailer on Youtube</a></p>
-</div>
-"""
-
 def _content(*movies):
     """Renders Movie objcets into html for bootstrap rows and tiles"""
     html = ''
