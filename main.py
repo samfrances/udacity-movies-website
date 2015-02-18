@@ -18,7 +18,16 @@ volver = media.Movie(imdb_id="tt0441909",
 four_lions = media.Movie(imdb_id="tt1341167",
                          trailer_youtube_id="Ew-SrlQ9tlI")  
 
-movies = [pans_labyrinth, monty_python, todo_sobre_mi_madre, volver, four_lions, twenty_eight]
+goodbye_lenin = media.Movie(imdb_id="tt0301357",
+                trailer_youtube_id="u5hzmwGW4Ac")
+
+two_days = media.Movie(imdb_id="tt2737050",
+                       trailer_youtube_id="InuzW58ydyU")
+                       
+spirited = media.Movie(imdb_id="tt0245429",
+                       trailer_youtube_id="ByXuk9QqQkk")
+
+movies = [pans_labyrinth, monty_python, todo_sobre_mi_madre, volver, four_lions, twenty_eight, goodbye_lenin, two_days, spirited]
 
 if __name__ == "__main__":
     html = view.movies_view(*movies)
