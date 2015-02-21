@@ -3,7 +3,7 @@ information about movies"""
 
 import urllib, json
 
-class Movie():
+class Movie(object):
     """This class represents movies and associated information."""
     
     def __init__(self, imdb_id, trailer_youtube_id,

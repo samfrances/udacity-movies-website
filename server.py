@@ -3,7 +3,7 @@ provided as a string to http://localhost:8080/"""
 
 from wsgiref.simple_server import make_server
 
-class App():
+class App(object):
     def __init__(self, html):
         self.html = html
 
@@ -12,7 +12,7 @@ class App():
         start_response('200 OK', [('Content-Type', 'text/html')])
         return [self.html]
 
-class VerySimpleServer():
+class VerySimpleServer(object):
     def __init__(self, html):
         self.app = App(html)
 
