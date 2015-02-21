@@ -1,7 +1,7 @@
 """A module which provides a class for retrieving, storing and representing 
 information about movies"""
 
-import urllib, json
+import urllib2, json
 
 class Movie(object):
     """This class represents movies and associated information."""
@@ -48,18 +48,28 @@ class Movie(object):
     def _get_omdb_data(self):
         """Fetch data from the Open Movie Database and cache that data"""
         url = "http://www.omdbapi.com/?i=" + self.imdb_id + "&plot=short&r=json"
-        json_data = urllib.urlopen(url).read()
-        data = json.loads(json_data)
-        self._omdb_data["title"] = data["Title"].encode('utf-8', 'ignore') # encode to prevent encoding errors
-        self._omdb_data["storyline"] = data["Plot"].encode('utf-8', 'ignore')
-        self._omdb_data["poster_image_url"] = data["Poster"].encode('utf-8', 'ignore')
-        self._omdb_data["age_rating"] = data["Rated"].encode('utf-8', 'ignore')
-        self._omdb_data["imdb_rating"] = float(data["imdbRating"])
-        self._omdb_data["genre"] = data["Genre"].encode('utf-8', 'ignore')
-        self._omdb_data["directors"] = data["Director"].encode('utf-8', 'ignore').split(", ")
-        self._omdb_data["actors"] = data["Actors"].encode('utf-8', 'ignore').split(", ")
-        self._omdb_data["awards"] = data["Awards"].encode('utf-8', 'ignore')
-        self._omdb_data["release_date"] = data["Released"].encode('utf-8', 'ignore')
+        try:
+            json_data = urllib2.urlopen(url).read()
+        except urllib2.HTTPError as e:
+            print('The server couldn\'t fulfill the request.')
+            print 'Error code:', e.code
+            exit()
+        except urllib2.URLError as e:
+            print('We failed to reach a server.')
+            print 'Reason:', e.reason
+            exit()
+        else:
+            data = json.loads(json_data)
+            self._omdb_data["title"] = data["Title"].encode('utf-8', 'ignore') # encode to prevent encoding errors
+            self._omdb_data["storyline"] = data["Plot"].encode('utf-8', 'ignore')
+            self._omdb_data["poster_image_url"] = data["Poster"].encode('utf-8', 'ignore')
+            self._omdb_data["age_rating"] = data["Rated"].encode('utf-8', 'ignore')
+            self._omdb_data["imdb_rating"] = float(data["imdbRating"])
+            self._omdb_data["genre"] = data["Genre"].encode('utf-8', 'ignore')
+            self._omdb_data["directors"] = data["Director"].encode('utf-8', 'ignore').split(", ")
+            self._omdb_data["actors"] = data["Actors"].encode('utf-8', 'ignore').split(", ")
+            self._omdb_data["awards"] = data["Awards"].encode('utf-8', 'ignore')
+            self._omdb_data["release_date"] = data["Released"].encode('utf-8', 'ignore')
         
     def __getattr__(self, name):
         """Allows data to be retrieved from omdb cache via instance attributes,
