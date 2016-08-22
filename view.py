@@ -86,9 +86,16 @@ template_head = """
                     var modal = $(modal_id);
                     modal.find('.modal-body').html(html);
                     modal.find('.modal-title').text(title + " (" + age_rating +")");
-                })
+                });
+                
+                // Sets close button on trailer modal to stop video
+                var modal = $(modal_id);
+                modal.find('button.close').click(function() {
+                    modal.find('.modal-body').html("");
+                });
             });
         });
+
     </script>
   </head>
 """
